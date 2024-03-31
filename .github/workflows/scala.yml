@@ -25,6 +25,12 @@ jobs:
       - name: Run tests
         run: sbt test
 
+      - name: Debug Output
+        run: |
+            echo "Access Token: ${{ secrets.SCALA_CI }}"
+            git config --list
+            git remote -v
+
       - name: Push to GitHub with Access Token
         run: |
           git config --global user.email "paulmunyao094@gmail.com"
