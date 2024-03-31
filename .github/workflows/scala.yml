@@ -6,8 +6,6 @@ on:
   pull_request:
     branches: [ "master" ]
 
-#  workflow_dispatch:
-
 permissions:
   contents: read
 
@@ -27,18 +25,14 @@ jobs:
       - name: Run tests
         run: sbt test
 
-#      - name: Debug Output
-#        run: |
-#            echo "Access Token: ${{ secrets.SCALA_CI }}"
-#            git config --list
-#            git remote -v
-#
-#      - name: Push to GitHub with Access Token
-#        run: |
-#          git config --global user.email "paulmunyao094@gmail.com"
-#          git config --global user.name "paulmunyao"
-#          git remote set-url origin https://github.com/paulmunyao/Knight-s-Tour.git
-#          git push origin master
+
+      - name: Push to GitHub
+        run: |
+          git config --global user.email "paulmunyao094@gmail.com"
+          git config --global user.name "paulmunyao"
+          git remote set-url origin https://${{ secrets.GITHUB_TOKEN }}@github.com/paulmunyao/Knight-s-Tour.git
+          git push origin ${{ github.ref }}
+
         env:
           ACCESS_TOKEN: ${{ secrets.SCALA_CI }}
 
