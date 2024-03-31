@@ -32,4 +32,5 @@ jobs:
           git remote set-url origin https://github.com/paulmunyao/Knight-s-Tour.git
           git push origin master
         env:
-          SCALA_CI: ${{ secrets.ACCESS_TOKEN }}
+          ACCESS_TOKEN: ${{ secrets.SCALA_CI }}
+
