@@ -81,7 +81,7 @@ Afterwards run the following command to get the output
 
 - GitHub: [@githubhandle](https://github.com/paulmunyao)
 - Twitter: [@twitterhandle](https://twitter.com/Mutiso_P)
-- LinkedIn: [LinkedIn](https://www.linkedin.com/in/paulmunyao/)
+- Linkedin: [Linkedin](https://www.linkedin.com/in/paulmunyao/)
 
 <p align="left">(<a href="#readme-top">back to top</a>)</p>
 
