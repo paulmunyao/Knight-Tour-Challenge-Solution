@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Knight Problem.iml" filepath="$PROJECT_DIR$/.idea/modules/Knight Problem.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Knight Problem-build.iml" filepath="$PROJECT_DIR$/.idea/modules/Knight Problem-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Knight's Tour.iml" filepath="$PROJECT_DIR$/.idea/modules/Knight's Tour.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Knight's Tour-build.iml" filepath="$PROJECT_DIR$/.idea/modules/Knight's Tour-build.iml" />
     </modules>
   </component>
 </project>
