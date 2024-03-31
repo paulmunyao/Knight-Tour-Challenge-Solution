@@ -1,0 +1,7 @@
+[0m[[0m[33mwarn[0m] [0m[0m/home/paul/PROJECTS/Knight's Tour/src/main/scala/knight.scala:45:40: comparing values of types Unit and Unit using `==` will always yield true[0m
+[0m[[0m[33mwarn[0m] [0m[0m      val result = newStates.find(_._1 == ())[0m
+[0m[[0m[33mwarn[0m] [0m[0m                                       ^[0m
+[0m[[0m[33mwarn[0m] [0m[0m/home/paul/PROJECTS/Knight's Tour/src/main/scala/knight.scala:58:16: comparing values of types Unit and Unit using `==` will always yield true[0m
+[0m[[0m[33mwarn[0m] [0m[0m    if (result == ()) println("Solution Found!") else println("Solution not Found!")[0m
+[0m[[0m[33mwarn[0m] [0m[0m               ^[0m
+[0m[[0m[33mwarn[0m] [0m[0mtwo warnings found[0m
