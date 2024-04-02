@@ -1,3 +1,5 @@
+import scala.annotation.tailrec
+
 object KnightTour {
 
   // Initial position of Knight
@@ -15,46 +17,71 @@ object KnightTour {
   val dy = Array(1, 2, 2, 1, -1, -2, -2, -1)
 
   // Function to check if the move is valid
-  def isValid(x: Int, y: Int): Boolean = {
+  def isValid(x: Int, y: Int): Boolean =
     x >= 0 && y >= 0 && x < S && y < S && chessboard(x)(y) == -1
-  }
 
-  // Monad implementation
-  case class StateMonad[A](run: (Int, Int) => (A, (Int, Int))) {
-    def flatMap[B](f: (A, (Int, Int)) => StateMonad[B]): StateMonad[B] = StateMonad((x, y) => {
-      val (a, newState) = run(x, y)
-      f(a, newState).run(newState._1, newState._2)
-    })
-  }
+  // Dotty-cps-async style
+  import scala.scalanative.loop
 
-  // Function for Knight's Tour
-  def knightTour(movei: Int): StateMonad[Unit] = StateMonad { (x, y) =>
+  def knightTour(movei: Int): Unit = loop {
     chessboard(x)(y) = movei
-    if (movei == S * S - 1) {
-      for (i <- chessboard; j <- i) print(s"$j ")
-      println()
-      ((), (x, y))
-    } else {
-      val newStates = for {
-        i <- dx.indices
-        newX = x + dx(i)
-        newY = y + dy(i)
-        if isValid(newX, newY)
-      } yield knightTour(movei + 1).run(newX, newY)
+    if movei == S * S - 1 then
+    for i <- chessboard; j <- i do print(s"$j ")
+    println()
+    else
+    val newStates = dx.indices.flatMap { i =>
+      val newX = x + dx(i)
+      val newY = y + dy(i)
+      if isValid(newX, newY) then
+        knightTour(movei + 1)
+      x = newX
+      y = newY
+      false
+      else
+      true
+    }
+    if newStates.forall(identity) then
+      chessboard(x)(y) = -1
+  }
 
-      val result = newStates.find(_._1 == ())
-      result match {
-        case Some(((), newState)) => ((), newState)
-        case None =>
+  // Direct style
+  def knightTourDirect(movei: Int): Boolean = {
+    chessboard(x)(y) = movei
+    if movei == S * S - 1 then
+    for i <- chessboard; j <- i do print(s"$j ")
+    println()
+    true
+    else {
+      @tailrec
+      def findSolution(indices: Iterator[Int]): Boolean =
+        if indices.isEmpty then
           chessboard(x)(y) = -1
-          ((), (x, y))
+      false
+      else
+      val i = indices.next()
+      val newX = x + dx(i)
+      val newY = y + dy(i)
+      if isValid(newX, newY) then
+      val oldX = x
+      val oldY = y
+      x = newX
+      y = newY
+      val found = knightTourDirect(movei + 1)
+      if found then true else {
+        x = oldX
+        y = oldY
+        findSolution(indices)
       }
+      else
+      findSolution(indices)
+
+      findSolution(dx.indices.iterator)
     }
   }
 
   def main(args: Array[String]): Unit = {
-    for (i <- chessboard.indices; j <- chessboard(i).indices) chessboard(i)(j) = -1
-    val result = knightTour(0).run(x, y)._1
-    if (result == ()) println("Solution Found!") else println("Solution not Found!")
+    for i <- chessboard.indices; j <- chessboard(i).indices do chessboard(i)(j) = -1
+    val result = knightTourDirect(0)
+    if result then println("Solution Found!") else println("Solution not Found!")
   }
 }
